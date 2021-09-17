@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { UserContext } from './contextes/User'
+import MyRouter from './MyRouter'
+import { Permission, RouteName, Routes } from './MyRouter/types'
+import LoginPage from './Pages/LoginPage'
+import RootPage from './Pages/RootPage'
+import { User } from './types/Common'
 
 function App() {
+  const user: User = {
+    permissions: [Permission.isLogged]
+  }
+
+  const routes: Routes = [
+    {
+      name: RouteName.LoginPage,
+      pathname: '/login',
+      permissions: [],
+      component: LoginPage
+    },
+    {
+      name: RouteName.RootPage,
+      pathname: '/',
+      permissions: [Permission.isLogged],
+      component: RootPage
+    }
+  ]
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <UserContext.Provider value={{ user }}>
+      <MyRouter routes={routes} />
+    </UserContext.Provider>
+  )
 }
 
-export default App;
+export default App
