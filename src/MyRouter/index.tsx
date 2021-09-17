@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { UserContext } from '../contextes/User'
+import { MyRouterContext } from '../contextes/MyRouterContext'
+import { UserContext } from '../contextes/UserContext'
 import DeniedPage from '../Pages/DeniedPage'
 import { logger } from '../utils/logger'
 import { Routes } from './types'
@@ -10,13 +11,23 @@ interface IMyRouterProps {
 
 const MyRouter: React.FC<IMyRouterProps> = props => {
   const userContext = React.useContext(UserContext)
+  const myRouterContext = React.useContext(MyRouterContext)
 
-  if (!userContext?.user) {
+  if (!userContext?.user || !myRouterContext?.currentPathname) {
     return <DeniedPage />
   }
 
-  const grantedRoutes = props.routes
+  const sortedRoutes = props.routes.sort((a, b) =>
+    a.pathname.length < b.pathname.length ? 1 : -1
+  )
+
+  // Get granted routes from users & routes permissions
+  const grantedRoutes = sortedRoutes
     .filter(route => {
+      if (!myRouterContext.currentPathname.startsWith(route.pathname)) {
+        return false
+      }
+
       return route.permissions.every(permissionRequired =>
         userContext.user.permissions.includes(permissionRequired)
       )
@@ -24,7 +35,7 @@ const MyRouter: React.FC<IMyRouterProps> = props => {
     .reverse()
 
   logger.info(
-    'Granted routes:',
+    '[MyRouter] Granted routes:',
     grantedRoutes.map(route => route.name)
   )
 
@@ -33,6 +44,8 @@ const MyRouter: React.FC<IMyRouterProps> = props => {
   if (!firstGrantedRoute) {
     return <DeniedPage />
   }
+
+  logger.info('[MyRouter] Render:', firstGrantedRoute.component.name)
 
   return (
     <div>

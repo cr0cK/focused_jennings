@@ -20,6 +20,13 @@ export enum RouteName {
   AdminRolesEditPage = 'AdminRolesEditPage'
 }
 
+export interface RouteDefinition {
+  routeName: RouteName
+  pathname: string
+  permissions: Permission[]
+  subRoutes?: RouteDefinition[]
+}
+
 export enum Permission {
   isLogged = 'isLogged',
   readDashboard = 'readDashboard',
