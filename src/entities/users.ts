@@ -8,29 +8,23 @@ const notLoggedUser: User = {
 
 const loggedUser: User = {
   name: 'Logged user',
-  permissions: [Permission.isLogged]
+  permissions: [...notLoggedUser.permissions, Permission.isLogged]
 }
 
 const readDashboardUser: User = {
   name: 'Read dashboard user',
-  permissions: [Permission.isLogged, Permission.readDashboard]
+  permissions: [...loggedUser.permissions, Permission.readDashboard]
 }
 
 const basicAdminUser: User = {
   name: 'Basic admin user',
-  permissions: [
-    Permission.isLogged,
-    Permission.readDashboard,
-    Permission.isAdmin
-  ]
+  permissions: [...readDashboardUser.permissions, Permission.isAdmin]
 }
 
 const readOnlyAdminUser: User = {
   name: 'Read only admin user',
   permissions: [
-    Permission.isLogged,
-    Permission.readDashboard,
-    Permission.isAdmin,
+    ...basicAdminUser.permissions,
     Permission.adminReadUsers,
     Permission.adminReadRoles
   ]
@@ -39,12 +33,8 @@ const readOnlyAdminUser: User = {
 const superAdminUser: User = {
   name: 'Super admin user',
   permissions: [
-    Permission.isLogged,
-    Permission.readDashboard,
-    Permission.isAdmin,
-    Permission.adminReadUsers,
+    ...readOnlyAdminUser.permissions,
     Permission.adminEditUsers,
-    Permission.adminReadRoles,
     Permission.adminEditRoles
   ]
 }
