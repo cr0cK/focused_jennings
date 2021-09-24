@@ -21,13 +21,23 @@ const MyRouter: React.FC<IMyRouterProps> = props => {
     a.pathname.length < b.pathname.length ? 1 : -1
   )
 
-  // Get granted routes from users & routes permissions
-  const grantedRoutes = sortedRoutes
-    .filter(route => {
-      if (!myRouterContext.currentPathname.startsWith(route.pathname)) {
-        return false
-      }
+  // Keep routes that match the current pathname
+  const matchedRoutes = sortedRoutes.filter(route => {
+    return myRouterContext.currentPathname.startsWith(route.pathname)
+  })
 
+  logger.info(
+    '[MyRouter] Matched routes:',
+    matchedRoutes.map(route => route.name)
+  )
+
+  if (!matchedRoutes.length) {
+    return null
+  }
+
+  // Get granted routes
+  const grantedRoutes = matchedRoutes
+    .filter(route => {
       return route.permissions.every(permissionRequired =>
         userContext.user.permissions.includes(permissionRequired)
       )

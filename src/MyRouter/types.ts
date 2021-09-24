@@ -31,8 +31,8 @@ export enum Permission {
   isLogged = 'isLogged',
   readDashboard = 'readDashboard',
   isAdmin = 'isAdmin',
-  readUsers = 'readUsers',
-  editUsers = 'editUsers',
-  readRoles = 'readRoles',
-  editRoles = 'editRoles'
+  adminReadUsers = 'adminReadUsers',
+  adminEditUsers = 'adminEditUsers',
+  adminReadRoles = 'adminReadRoles',
+  adminEditRoles = 'adminEditRoles'
 }

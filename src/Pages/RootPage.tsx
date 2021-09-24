@@ -6,7 +6,7 @@ import DashboardPage from './DashboardPage'
 
 interface IRootPageProps {}
 
-const RootPage: React.FunctionComponent<IRootPageProps> = props => {
+const RootPage: React.FC<IRootPageProps> = props => {
   return (
     <>
       <p>RootPage</p>
@@ -16,13 +16,13 @@ const RootPage: React.FunctionComponent<IRootPageProps> = props => {
           {
             name: RouteName.DashboardPage,
             pathname: '/dashboard',
-            permissions: [Permission.isLogged, Permission.readDashboard],
+            permissions: [Permission.readDashboard],
             component: DashboardPage
           },
           {
             name: RouteName.AdminPage,
             pathname: '/admin',
-            permissions: [Permission.isLogged, Permission.isAdmin],
+            permissions: [Permission.isAdmin],
             component: AdminPage
           }
         ]}

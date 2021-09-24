@@ -2,9 +2,8 @@ import * as React from 'react'
 
 interface IAdminUsersEditPageProps {}
 
-const AdminUsersEditPage: React.FunctionComponent<IAdminUsersEditPageProps> =
-  props => {
-    return <p>AdminUsersEditPage</p>
-  }
+const AdminUsersEditPage: React.FC<IAdminUsersEditPageProps> = props => {
+  return <p>AdminUsersEditPage</p>
+}
 
 export default AdminUsersEditPage

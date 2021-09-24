@@ -4,7 +4,7 @@ import Link from './Link'
 
 interface INavigationProps {}
 
-const Navigation: React.FunctionComponent<INavigationProps> = props => {
+const Navigation: React.FC<INavigationProps> = props => {
   return (
     <ul>
       <li>

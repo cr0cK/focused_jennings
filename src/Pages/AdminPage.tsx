@@ -1,13 +1,12 @@
 import * as React from 'react'
 import MyRouter from '../MyRouter'
 import { Permission, RouteName } from '../MyRouter/types'
-import AdminUsersEditPage from './AdminUsersEditPage'
-import AdminUsersListPage from './AdminUsersListPage'
+import AdminRolesPage from './AdminRolesPage'
 import AdminUsersPage from './AdminUsersPage'
 
 interface IAdminPageProps {}
 
-const AdminPage: React.FunctionComponent<IAdminPageProps> = props => {
+const AdminPage: React.FC<IAdminPageProps> = props => {
   return (
     <>
       <p>AdminPage</p>
@@ -17,33 +16,14 @@ const AdminPage: React.FunctionComponent<IAdminPageProps> = props => {
           {
             name: RouteName.AdminUsersPage,
             pathname: '/admin/users',
-            permissions: [
-              Permission.isLogged,
-              Permission.isAdmin,
-              Permission.readUsers
-            ],
+            permissions: [Permission.adminReadUsers],
             component: AdminUsersPage
           },
           {
-            name: RouteName.AdminUsersListPage,
-            pathname: '/admin/users/list',
-            permissions: [
-              Permission.isLogged,
-              Permission.isAdmin,
-              Permission.readUsers
-            ],
-            component: AdminUsersListPage
-          },
-          {
-            name: RouteName.AdminUsersEditPage,
-            pathname: '/admin/user/edit',
-            permissions: [
-              Permission.isLogged,
-              Permission.isAdmin,
-              Permission.readUsers,
-              Permission.editUsers
-            ],
-            component: AdminUsersEditPage
+            name: RouteName.AdminRolesPage,
+            pathname: '/admin/roles',
+            permissions: [Permission.adminReadRoles],
+            component: AdminRolesPage
           }
         ]}
       />

@@ -2,7 +2,7 @@ import * as React from 'react'
 
 interface IDeniedPageProps {}
 
-const DeniedPage: React.FunctionComponent<IDeniedPageProps> = props => {
+const DeniedPage: React.FC<IDeniedPageProps> = props => {
   return <p>DeniedPage</p>
 }
 

@@ -5,7 +5,7 @@ interface ILinkProps {
   label: string
 }
 
-const Link: React.FunctionComponent<ILinkProps> = props => {
+const Link: React.FC<ILinkProps> = props => {
   /**
    * Push into the history and trigger the onpopstate event, catched by MyRouter.
    */
